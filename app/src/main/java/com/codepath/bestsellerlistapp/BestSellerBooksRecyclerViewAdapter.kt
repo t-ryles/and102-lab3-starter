@@ -1,11 +1,14 @@
 package com.codepath.bestsellerlistapp
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.codepath.bestsellerlistapp.R.id
@@ -55,6 +58,10 @@ class BestSellerBooksRecyclerViewAdapter(
         holder.mBookAuthor.text = book.author
         holder.mDescription.text = book.description
         holder.mRanking.text = book.rank.toString()
+        holder.mBuyButton.setOnClickListener {
+            val browserIntent = Intent (Intent.ACTION_VIEW, Uri.parse(book.amazonProductUrl))
+            startActivity(it.context, browserIntent, null)
+        }
 
         //Takes the image and store it into the ImageView
         Glide.with(holder.mView)
@@ -67,7 +74,6 @@ class BestSellerBooksRecyclerViewAdapter(
                 mListener?.onItemClick(book)
             }
         }
-
     }
 
     /**
